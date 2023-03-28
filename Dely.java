@@ -44,11 +44,7 @@ public class Dely {
 
     public void executar(){
         int opcao;
-        String cidadePartida;
-        String cidadeDestino;
-        int transporte;
-        int distanciaCalculada;
-        double valorTransporte;
+        
         do{
             menu();
             opcao = entrada.nextInt();
@@ -56,37 +52,11 @@ public class Dely {
 
             switch(opcao){
 
-                case 1: 
-                    do{
-                    System.out.println("Informe a cidade de partida: ");
-                    cidadePartida = entrada.nextLine().toUpperCase();
-                    if(cidadeExiste(cidadePartida) == false)
-                        System.out.println("Cidade não encontrada!");
-                    }while (cidadeExiste(cidadePartida) == false);
-
-                    do{
-                    System.out.println("Informe a cidade destino: ");
-                    cidadeDestino = entrada.nextLine().toUpperCase();
-                    if(cidadeExiste(cidadeDestino) == false)
-                        System.out.println("Cidade não encontrada!");
-                    }while (cidadeExiste(cidadeDestino) == false);
-
-                    do{
-                    System.out.println("Informe a modalidade de transporte: ");
-                    System.out.println("[1] Caminhão de Pequeno Porte");
-                    System.out.println("[2] Caminhão de Médio Porte.");
-                    System.out.println("[3] Caminhão de Grande Porte.");
-                    transporte = entrada.nextInt();
-                    entrada.nextLine();
-                    if(transporte < 1 || transporte > 3)
-                        System.out.println("Modalidade de transporte invalido!");
-                    }while (transporte < 1 || transporte > 3);
-
-                    distanciaCalculada = calculaDistancias(cidadePartida, cidadeDestino);
-                    valorTransporte = caminhao.calculaValor(distanciaCalculada,transporte);
-
-                    System.out.println("De " + cidadePartida + " para " + cidadeDestino + ", utilizando um " + caminhao.porte(transporte) + ", a dinstância é de " + distanciaCalculada + "km e o custo será de R$" + valorTransporte + ".");
+                case 1: consultarTrecho();
                 break;
+
+                case 2: 
+                    
 
                 case 0:
                 break;
@@ -94,6 +64,99 @@ public class Dely {
 
         }while (opcao != 0);
     }
+
+    public void consultarTrecho(){
+        String cidadePartida;
+        String cidadeDestino;
+        int transporte;
+        int distanciaCalculada;
+        double valorTransporte;
+        do{
+            System.out.println("Informe a cidade de partida: ");
+            cidadePartida = entrada.nextLine().toUpperCase();
+            if(cidadeExiste(cidadePartida) == false)
+                System.out.println("Cidade não encontrada!");
+            }while (cidadeExiste(cidadePartida) == false);
+
+            do{
+            System.out.println("Informe a cidade destino: ");
+            cidadeDestino = entrada.nextLine().toUpperCase();
+            if(cidadeExiste(cidadeDestino) == false)
+                System.out.println("Cidade não encontrada!");
+            }while (cidadeExiste(cidadeDestino) == false);
+
+            do{
+            System.out.println("Informe a modalidade de transporte: ");
+            System.out.println("[1] Caminhão de Pequeno Porte");
+            System.out.println("[2] Caminhão de Médio Porte.");
+            System.out.println("[3] Caminhão de Grande Porte.");
+            transporte = entrada.nextInt();
+            entrada.nextLine();
+            if(transporte < 1 || transporte > 3)
+                System.out.println("Modalidade de transporte invalido!");
+            }while (transporte < 1 || transporte > 3);
+
+            distanciaCalculada = calculaDistancias(cidadePartida, cidadeDestino);
+            valorTransporte = caminhao.calculaValor(distanciaCalculada,transporte);
+
+            System.out.println("De " + cidadePartida + " para " + cidadeDestino + ", utilizando um " + caminhao.porte(transporte) + ", a dinstância é de " + distanciaCalculada + "km e o custo será de R$" + valorTransporte + ".");
+    }
+
+    public void cadastraTransporte(){
+        String cidadePartida;
+        String cidadeDestino;
+        int nCelulares;
+        int nGeladeiras;
+        int nFreezers;
+        int nCadeiras;
+        int nLuminarias;
+        int nLavadoraRoupas;
+
+        do{
+            System.out.println("Informe a cidade de partida: ");
+            cidadePartida = entrada.nextLine().toUpperCase();
+            if(cidadeExiste(cidadePartida) == false)
+                System.out.println("Cidade não encontrada!");
+            }while (cidadeExiste(cidadePartida) == false);
+
+            do{
+            System.out.println("Informe a cidade destino: ");
+            cidadeDestino = entrada.nextLine().toUpperCase();
+            if(cidadeExiste(cidadeDestino) == false)
+                System.out.println("Cidade não encontrada!");
+            }while (cidadeExiste(cidadeDestino) == false);  
+
+            do{
+                System.out.println("Neste trajeto, o numero de celulares transportados é de: ");
+                nCelulares = entrada.nextInt();
+            }while( nCelulares >= 0);
+
+            do{
+                System.out.println("Neste trajeto, o numero de geladeiras transportadas é de: ");
+                nGeladeiras= entrada.nextInt();
+            }while( nGeladeiras >= 0);
+
+            do{
+                System.out.println("Neste trajeto, o numero de freezers transportados é de: ");
+                nFreezers= entrada.nextInt();
+            }while( nFreezers >= 0);
+
+            do{
+                System.out.println("Neste trajeto, o numero de cadeiras transportadas é de: ");
+                nCadeiras= entrada.nextInt();
+            }while( nCadeiras >= 0);
+
+            do{
+                System.out.println("Neste trajeto, o numero de luminárias transportadas é de: ");
+                nLuminarias= entrada.nextInt();
+            }while( nLuminarias >= 0);
+
+            do{
+                System.out.println("Neste trajeto, o numero de lavadoras de ropas transportadas é de: ");
+                nLavadoraRoupas= entrada.nextInt();
+            }while( nLavadoraRoupas >= 0);
+    }
+
     public int calculaDistancias(String cidade1, String cidade2){
         return distancias.retornaDistancia(cidades.indexOf(cidade1), cidades.indexOf(cidade2));
        
@@ -108,6 +171,8 @@ public class Dely {
     public void menu(){
         System.out.println("=============Dely=============");
         System.out.println("[1] Consultar trecho x modalidade");
+        System.out.println("[2] Cadastrar transporte");
+        System.out.println("[0] Finalizar Programa");
         System.out.println("==============================");
     }
 
