@@ -1,22 +1,114 @@
+import java.util.ArrayList;
 import java.util.concurrent.ThreadPoolExecutor.DiscardOldestPolicy;
+import java.util.Scanner;
 
 public class Dely {
 
     private int teste;
     private Distancias distancias;
-    private String matrizString = "0;2079;1578;1652;2765;2775;2595;2892;1183;1848;611;294;5215;788;3296;4230;501;4763;1855;356;1578;2187;1142;1408\n" +
-    "2079;0;2824;2120;2942;2941;3193;3500;1610;2017;2161;2173;5298;2108;3852;4397;2074;4931;3250;2100;806;2933;947;3108\n" +
-    "1578;2824;0;716;1453;1594;1004;1301;2528;906;2171;1854;3951;2348;1712;3050;2061;3584;434;1372;2738;586;2302;524\n" +
-    "1650;2140;741;0;1134;1133;1366;1673;2200;209;2245;1930;3490;2422;2027;2589;2135;3123;1148;1446;2157;1015;1789;1239\n";
-    
+    private Scanner entrada;
+    private ArrayList<String> cidades;
+    private Caminhao caminhao;
+
+
     public Dely(){
-        this.teste = 0;
-        this.distancias = new Distancias(matrizString);
+        this.distancias = new Distancias();
+        this.entrada = new Scanner(System.in);
+        this.caminhao = new Caminhao();
+        this.cidades = new ArrayList<String>();
+        cidades.add("ARACAJU");
+        cidades.add("BELEM");
+        cidades.add("BELO HORIZONTE");
+        cidades.add("BRASILIA");
+        cidades.add("CAMPO GRANDE");
+        cidades.add("CUIABA");
+        cidades.add("CURITIBA");
+        cidades.add("FLORIANOPOLIS");
+        cidades.add("FORTALEZA");
+        cidades.add("GOIANIA");
+        cidades.add("JOAO PESSOA");
+        cidades.add("MACEIO");
+        cidades.add("MANAUS");
+        cidades.add("NATAL");
+        cidades.add("PORTO ALEGRE");
+        cidades.add("PORTO VELHO");
+        cidades.add("RECIFE");
+        cidades.add("RIO BRANCO");
+        cidades.add("RIO DE JANEIRO");
+        cidades.add("SALVADOR");
+        cidades.add("SAO LUIS");
+        cidades.add("SAO PAULO");
+        cidades.add("TERESINA");
+        cidades.add("VITORIA");
     }
 
     public void executar(){
-        
-        distancias.imprimirMatriz();
+        int opcao;
+        String cidadePartida;
+        String cidadeDestino;
+        int transporte;
+        int distanciaCalculada;
+        double valorTransporte;
+        do{
+            menu();
+            opcao = entrada.nextInt();
+            entrada.nextLine();
+
+            switch(opcao){
+
+                case 1: 
+                    do{
+                    System.out.println("Informe a cidade de partida: ");
+                    cidadePartida = entrada.nextLine().toUpperCase();
+                    if(cidadeExiste(cidadePartida) == false)
+                        System.out.println("Cidade não encontrada!");
+                    }while (cidadeExiste(cidadePartida) == false);
+
+                    do{
+                    System.out.println("Informe a cidade destino: ");
+                    cidadeDestino = entrada.nextLine().toUpperCase();
+                    if(cidadeExiste(cidadeDestino) == false)
+                        System.out.println("Cidade não encontrada!");
+                    }while (cidadeExiste(cidadeDestino) == false);
+
+                    do{
+                    System.out.println("Informe a modalidade de transporte: ");
+                    System.out.println("[1] Caminhão de Pequeno Porte");
+                    System.out.println("[2] Caminhão de Médio Porte.");
+                    System.out.println("[3] Caminhão de Grande Porte.");
+                    transporte = entrada.nextInt();
+                    entrada.nextLine();
+                    if(transporte < 1 || transporte > 3)
+                        System.out.println("Modalidade de transporte invalido!");
+                    }while (transporte < 1 || transporte > 3);
+
+                    distanciaCalculada = calculaDistancias(cidadePartida, cidadeDestino);
+                    valorTransporte = caminhao.calculaValor(distanciaCalculada,transporte);
+
+                    System.out.println("De " + cidadePartida + " para " + cidadeDestino + ", utilizando um " + caminhao.porte(transporte) + ", a dinstância é de " + distanciaCalculada + "km e o custo será de R$" + valorTransporte + ".");
+                break;
+
+                case 0:
+                break;
+            }
+
+        }while (opcao != 0);
+    }
+    public int calculaDistancias(String cidade1, String cidade2){
+        return distancias.retornaDistancia(cidades.indexOf(cidade1), cidades.indexOf(cidade2));
+       
+    }
+
+    public boolean cidadeExiste(String cidade){
+        if(cidades.contains(cidade))
+            return true;
+        return false;
+    }
+
+    public void menu(){
+        System.out.println("=============Dely=============");
+        System.out.println("[1] Consultar trecho x modalidade");
+        System.out.println("==============================");
     }
 
 }
