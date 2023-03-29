@@ -9,6 +9,7 @@ public class Dely {
     private Scanner entrada;
     private ArrayList<String> cidades;
     private Caminhao caminhao;
+    private Itens itens;
 
 
     public Dely(){
@@ -16,6 +17,7 @@ public class Dely {
         this.entrada = new Scanner(System.in);
         this.caminhao = new Caminhao();
         this.cidades = new ArrayList<String>();
+        this.itens = new Itens();
         cidades.add("ARACAJU");
         cidades.add("BELEM");
         cidades.add("BELO HORIZONTE");
@@ -55,7 +57,8 @@ public class Dely {
                 case 1: consultarTrecho();
                 break;
 
-                case 2: 
+                case 2: cadastraTransporte();
+                break;
                     
 
                 case 0:
@@ -111,6 +114,9 @@ public class Dely {
         int nCadeiras;
         int nLuminarias;
         int nLavadoraRoupas;
+        double pesoTotal;
+        int distanciaCalculada;
+        double precoTotal;
 
         do{
             System.out.println("Informe a cidade de partida: ");
@@ -129,32 +135,41 @@ public class Dely {
             do{
                 System.out.println("Neste trajeto, o numero de celulares transportados é de: ");
                 nCelulares = entrada.nextInt();
-            }while( nCelulares >= 0);
+            }while( nCelulares < 0);
 
             do{
                 System.out.println("Neste trajeto, o numero de geladeiras transportadas é de: ");
                 nGeladeiras= entrada.nextInt();
-            }while( nGeladeiras >= 0);
+            }while( nGeladeiras < 0);
 
             do{
                 System.out.println("Neste trajeto, o numero de freezers transportados é de: ");
                 nFreezers= entrada.nextInt();
-            }while( nFreezers >= 0);
+            }while( nFreezers < 0);
 
             do{
                 System.out.println("Neste trajeto, o numero de cadeiras transportadas é de: ");
                 nCadeiras= entrada.nextInt();
-            }while( nCadeiras >= 0);
+            }while( nCadeiras < 0);
 
             do{
                 System.out.println("Neste trajeto, o numero de luminárias transportadas é de: ");
                 nLuminarias= entrada.nextInt();
-            }while( nLuminarias >= 0);
+            }while( nLuminarias < 0);
 
             do{
                 System.out.println("Neste trajeto, o numero de lavadoras de ropas transportadas é de: ");
                 nLavadoraRoupas= entrada.nextInt();
-            }while( nLavadoraRoupas >= 0);
+            }while( nLavadoraRoupas < 0);
+
+            distanciaCalculada = calculaDistancias(cidadePartida, cidadeDestino);
+            pesoTotal = itens.calculaPeso(nCelulares,nCadeiras,nFreezers,nCadeiras,nLuminarias,nLavadoraRoupas);
+            caminhao.setQuantCaminhoes(pesoTotal);
+            precoTotal = caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesPequenos(), 1 ) + 
+                         caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesMedios(), 2) +
+                         caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesGrandes(), 3);
+
+            System.out.println("De " + cidadePartida + " para " + cidadeDestino + ", a distância a ser percorrida é de " + distanciaCalculada + "km, para transporte dos produtos " + pesoTotal + "" + "será necessario utilizar " + caminhao.getQuantCaminhoesGrandes() + " caminhões grandes, " + caminhao.getQuantCaminhoesMedios() + " caminhões médios e " + caminhao.getQuantCaminhoesPequenos() + " caminhões pequenos, de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$" + precoTotal + ", sendo R$");
     }
 
     public int calculaDistancias(String cidade1, String cidade2){
@@ -174,6 +189,8 @@ public class Dely {
         System.out.println("[2] Cadastrar transporte");
         System.out.println("[0] Finalizar Programa");
         System.out.println("==============================");
+        double a = 7%3;
+        System.out.println(a);
     }
 
 }

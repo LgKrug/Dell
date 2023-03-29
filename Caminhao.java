@@ -1,11 +1,23 @@
 public class Caminhao {
     private double precoPequeno;
+    private int cargaPequeno;
     private double precoMedio;
+    private int cargaMedio;
     private double precoGrande;
+    private int cargaGrande;
+    private double quantCaminhoesPequenos;
+    private double quantCaminhoesMedios;
+    private double quantCaminhoesGrandes;
     public Caminhao(){
         this.precoPequeno = 4.87;
+        this.cargaPequeno = 1000;
         this.precoMedio = 11.92;
+        this.cargaMedio = 4000;
         this.precoGrande = 27.44;
+        this.cargaGrande = 10000;
+        this.quantCaminhoesPequenos = quantCaminhoesPequenos;
+        this.quantCaminhoesMedios = quantCaminhoesMedios;
+        this.quantCaminhoesGrandes = quantCaminhoesGrandes;
     }
 
     public String porte(int caminhao) {
@@ -24,5 +36,39 @@ public class Caminhao {
             case 3: return distancia*precoGrande;
             default: return 0;
         }
+    }
+
+    public double calculaValor(int distancia, double quantCaminhao, int porteCaminhao) {
+        switch(porteCaminhao){
+            case 1: return distancia*precoPequeno*quantCaminhao;
+            case 2: return distancia*precoMedio*quantCaminhao;
+            case 3: return distancia*precoGrande*quantCaminhao;
+            default: return 0;
+        }
+    }
+
+    public void setQuantCaminhoes(double pesoTotal){
+        double resto =0;
+        quantCaminhoesGrandes = Math.floor(pesoTotal / cargaGrande); 
+        resto = (pesoTotal % cargaGrande);
+        if(resto > 0 && resto < 10000){
+            quantCaminhoesMedios = Math.floor(resto / cargaMedio);
+            resto = (resto % cargaMedio);
+            if(resto > 0 && resto < 4000){
+                quantCaminhoesPequenos = Math.ceil(resto / cargaPequeno);
+            } 
+        }
+    }
+
+    public double getQuantCaminhoesGrandes(){
+        return quantCaminhoesGrandes;
+    }
+
+    public double getQuantCaminhoesMedios(){
+        return quantCaminhoesMedios;
+    }
+
+    public double getQuantCaminhoesPequenos(){
+        return quantCaminhoesPequenos;
     }
 }
