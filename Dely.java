@@ -15,9 +15,9 @@ public class Dely {
     public Dely(){
         this.distancias = new Distancias();
         this.entrada = new Scanner(System.in);
-        this.caminhao = new Caminhao();
+        this.caminhao = new Caminhao(4.87,1000,11.92,4000,27.44,10000);
         this.cidades = new ArrayList<String>();
-        this.itens = new Itens();
+        this.itens = new Itens(0.5,60.0,100.0,5.0,0.8,120.0);
         cidades.add("ARACAJU");
         cidades.add("BELEM");
         cidades.add("BELO HORIZONTE");
@@ -117,6 +117,8 @@ public class Dely {
         double pesoTotal;
         int distanciaCalculada;
         double precoTotal;
+        String stringItens;
+        double precoUnitario;
 
         do{
             System.out.println("Informe a cidade de partida: ");
@@ -168,8 +170,16 @@ public class Dely {
             precoTotal = caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesPequenos(), 1 ) + 
                          caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesMedios(), 2) +
                          caminhao.calculaValor(distanciaCalculada, caminhao.getQuantCaminhoesGrandes(), 3);
+            stringItens = itens.lista(nCelulares, nGeladeiras, nFreezers, nCadeiras, nLuminarias, nLavadoraRoupas);
+            precoUnitario = precoTotal / (nCelulares + nGeladeiras + nFreezers + nCadeiras + nLuminarias + nLavadoraRoupas);
 
-            System.out.println("De " + cidadePartida + " para " + cidadeDestino + ", a distância a ser percorrida é de " + distanciaCalculada + "km, para transporte dos produtos " + pesoTotal + "" + "será necessario utilizar " + caminhao.getQuantCaminhoesGrandes() + " caminhões grandes, " + caminhao.getQuantCaminhoesMedios() + " caminhões médios e " + caminhao.getQuantCaminhoesPequenos() + " caminhões pequenos, de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$" + precoTotal + ", sendo R$");
+
+
+            System.out.printf( "De " + cidadePartida + " para " + cidadeDestino + ", a distância a ser percorrida é de " + distanciaCalculada + "km, para transporte dos produtos: " +
+                             stringItens + "será necessario utilizar " + "%.0f" + " caminhões grandes, " + "%.0f" + " caminhões médios e " + "%.0f" + 
+                             " caminhões pequenos, de forma a resultar no menor custo de transporte por km rodado. O valor total do transporte dos itens é R$" + "%.2f" + 
+                             ", sendo R$" + "%.2f" + " é o custo unitário médio." + "\n", caminhao.getQuantCaminhoesGrandes(), 
+                             caminhao.getQuantCaminhoesMedios(), caminhao.getQuantCaminhoesPequenos(), precoTotal,precoUnitario);
     }
 
     public int calculaDistancias(String cidade1, String cidade2){
@@ -189,8 +199,6 @@ public class Dely {
         System.out.println("[2] Cadastrar transporte");
         System.out.println("[0] Finalizar Programa");
         System.out.println("==============================");
-        double a = 7%3;
-        System.out.println(a);
     }
 
 }

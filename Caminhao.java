@@ -8,16 +8,13 @@ public class Caminhao {
     private double quantCaminhoesPequenos;
     private double quantCaminhoesMedios;
     private double quantCaminhoesGrandes;
-    public Caminhao(){
-        this.precoPequeno = 4.87;
-        this.cargaPequeno = 1000;
-        this.precoMedio = 11.92;
-        this.cargaMedio = 4000;
-        this.precoGrande = 27.44;
-        this.cargaGrande = 10000;
-        this.quantCaminhoesPequenos = quantCaminhoesPequenos;
-        this.quantCaminhoesMedios = quantCaminhoesMedios;
-        this.quantCaminhoesGrandes = quantCaminhoesGrandes;
+    public Caminhao(double precoPequeno, int cargaPequeno, double precoMedio, int cargaMedio, double precoGrande, int cargaGrande){
+        this.precoPequeno = precoPequeno;
+        this.cargaPequeno = cargaPequeno;
+        this.precoMedio = precoMedio;
+        this.cargaMedio = cargaMedio;
+        this.precoGrande = precoGrande;
+        this.cargaGrande = cargaGrande;
     }
 
     public String porte(int caminhao) {
@@ -56,6 +53,10 @@ public class Caminhao {
             resto = (resto % cargaMedio);
             if(resto > 0 && resto < 4000){
                 quantCaminhoesPequenos = Math.ceil(resto / cargaPequeno);
+                if(quantCaminhoesPequenos > 2){
+                    quantCaminhoesPequenos = 0;
+                    quantCaminhoesMedios++;
+                }
             } 
         }
     }

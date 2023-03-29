@@ -5,16 +5,33 @@ public class Itens {
     private double pesoCadeira;
     private double pesoLuminaria;
     private double pesoLavaRoupa;
-    public Itens(){
-        this.pesoCelular = 0.5;
-        this.pesoGeladeira = 60.0;
-        this.pesoFreezer = 100.0;
-        this.pesoCadeira = 5.0;
-        this.pesoLuminaria = 0.8;
-        this.pesoLavaRoupa = 120.0;
+    public Itens(double pesoCelular, double pesoGeladeira, double pesoFreezer, double pesoCadeira, double pesoLuminaria, double pesoLavaRoupa){
+        this.pesoCelular = pesoCelular;
+        this.pesoGeladeira = pesoGeladeira;
+        this.pesoFreezer = pesoFreezer;
+        this.pesoCadeira = pesoCadeira;
+        this.pesoLuminaria = pesoLuminaria;
+        this.pesoLavaRoupa = pesoLavaRoupa;
     }
 
     public double calculaPeso(double celular, double geladeira, double freezer, double cadeira, double luminaria, double lavaRoupa){
         return celular*pesoCelular + geladeira*pesoGeladeira + freezer*pesoFreezer + cadeira*pesoCadeira + luminaria*pesoLuminaria + lavaRoupa*pesoLavaRoupa;
+    }
+
+    public String lista(int celular, int geladeira, int freezer, int cadeira, int luminaria, int lavaRoupa){
+        String aux = "";
+        if(celular > 0)
+            aux = "Celular; ";
+        if(geladeira > 0)
+            aux = aux + "Geladeira; ";
+        if(freezer > 0)
+            aux = aux + "Freezer; ";
+        if(cadeira > 0)
+            aux = aux + "Cadeira; ";
+        if(luminaria > 0)
+            aux = aux + "Luminaria; ";
+        if(lavaRoupa > 0)
+            aux = aux + "Lavadora de Roupas; ";
+        return aux;
     }
 }
