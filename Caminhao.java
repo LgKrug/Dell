@@ -8,6 +8,7 @@ public class Caminhao {
     private double quantCaminhoesPequenos;
     private double quantCaminhoesMedios;
     private double quantCaminhoesGrandes;
+
     public Caminhao(double precoPequeno, int cargaPequeno, double precoMedio, int cargaMedio, double precoGrande, int cargaGrande){
         this.precoPequeno = precoPequeno;
         this.cargaPequeno = cargaPequeno;
@@ -17,6 +18,7 @@ public class Caminhao {
         this.cargaGrande = cargaGrande;
     }
 
+    //Retrona uma String com o porte do caminhão dependendo do argumento passado com o numero do caminhão escolhido.
     public String porte(int caminhao) {
         switch(caminhao) {
             case 1: return "caminhão de pequeno porte";
@@ -26,6 +28,7 @@ public class Caminhao {
         }
     }
 
+    //Retorna o preço de um transporte dependendo da distancia e do tipo de caminhão.
     public double calculaValor(int distancia, int caminhao) {
         switch(caminhao){
             case 1: return distancia*precoPequeno;
@@ -35,6 +38,7 @@ public class Caminhao {
         }
     }
 
+    //Retorna o preço de um transporte dependendo da distancia, do tipo de caminhão e da quantidade de caminhões.
     public double calculaValor(int distancia, double quantCaminhao, int porteCaminhao) {
         switch(porteCaminhao){
             case 1: return distancia*precoPequeno*quantCaminhao;
@@ -44,6 +48,7 @@ public class Caminhao {
         }
     }
 
+    //Calcula a quantidade ideal de caminões para determinado peso
     public void setQuantCaminhoes(double pesoTotal){
         double resto =0;
         quantCaminhoesGrandes = Math.floor(pesoTotal / cargaGrande); 
@@ -61,14 +66,17 @@ public class Caminhao {
         }
     }
 
+    //Retorna a quantidade de caminhôes grandes.
     public double getQuantCaminhoesGrandes(){
         return quantCaminhoesGrandes;
     }
 
+    //Retorna a quantidade de caminhôes médios.
     public double getQuantCaminhoesMedios(){
         return quantCaminhoesMedios;
     }
 
+    //Retorna a quantidade de caminhôes pequenos.
     public double getQuantCaminhoesPequenos(){
         return quantCaminhoesPequenos;
     }

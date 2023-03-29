@@ -5,6 +5,7 @@ public class Itens {
     private double pesoCadeira;
     private double pesoLuminaria;
     private double pesoLavaRoupa;
+
     public Itens(double pesoCelular, double pesoGeladeira, double pesoFreezer, double pesoCadeira, double pesoLuminaria, double pesoLavaRoupa){
         this.pesoCelular = pesoCelular;
         this.pesoGeladeira = pesoGeladeira;
@@ -14,10 +15,12 @@ public class Itens {
         this.pesoLavaRoupa = pesoLavaRoupa;
     }
 
+    //Retorna o peso total de todos os produtos registrados
     public double calculaPeso(double celular, double geladeira, double freezer, double cadeira, double luminaria, double lavaRoupa){
         return celular*pesoCelular + geladeira*pesoGeladeira + freezer*pesoFreezer + cadeira*pesoCadeira + luminaria*pesoLuminaria + lavaRoupa*pesoLavaRoupa;
     }
 
+    //Retorna uma String com os itens sendo utilizados
     public String lista(int celular, int geladeira, int freezer, int cadeira, int luminaria, int lavaRoupa){
         String aux = "";
         if(celular > 0)

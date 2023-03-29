@@ -4,6 +4,7 @@ public class Distancias {
     private int[][] matriz;
 
     public Distancias() {
+        //String com as distancias das cidades
         String matrizString = "0;2079;1578;1652;2765;2775;2595;2892;1183;1848;611;294;5215;788;3296;4230;501;4763;1855;356;1578;2187;1142;1408\n" +
         "2079;0;2824;2120;2942;2941;3193;3500;1610;2017;2161;2173;5298;2108;3852;4397;2074;4931;3250;2100;806;2933;947;3108\n" +
         "1578;2824;0;716;1453;1594;1004;1301;2528;906;2171;1854;3951;2348;1712;3050;2061;3584;434;1372;2738;586;2302;524\n" +
@@ -29,11 +30,13 @@ public class Distancias {
         "1142;947;2302;1789;2911;2910;3143;3450;634;1986;1224;1236;5267;1171;3804;4366;1137;4900;2579;1163;446;2792;0;2171\n" +
         "1408;3108;524;1238;1892;2119;1300;1597;2397;1428;2001;1684;4476;2178;2001;3575;1891;4109;521;1202;2607;882;2171;0\n" ;
 
+        //Separação da String em linhas e colunas
         Scanner scanner = new Scanner(matrizString);
         int linhas = matrizString.split("\n").length;
         int colunas = matrizString.split("\n")[0].split(";").length;
         matriz = new int[linhas][colunas];
 
+        //Alocamento de cada distância na string para seu devido lugar na matriz
         for (int i = 0; i < linhas; i++) {
             String linha = scanner.nextLine();
             String[] valores = linha.split(";");
@@ -43,6 +46,7 @@ public class Distancias {
         }
     }
 
+    //Retorna a distância especificada na matriz
     public int retornaDistancia(int i, int j) {
         return matriz[i][j];
     }
